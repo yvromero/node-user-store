@@ -1,13 +1,9 @@
 import jwt from 'jsonwebtoken';
 import { envs } from './envs';
-import { resolve } from 'path';
-
 
 const JWT_SEED = envs.JWT_SEED;
 
 export class JwtAdapter {
-
-    // Static Method
 
     static generateToken( payload: any, duration: string = '2h' ) {
         
@@ -21,7 +17,7 @@ export class JwtAdapter {
         })
     }
 
-    static validateToken( token: string ) {
+    static validateToken<T>( token: string ): Promise< T | null> {
 
         return new Promise( (resolve) => {
 
@@ -29,7 +25,7 @@ export class JwtAdapter {
 
                 if ( err ) return resolve( null );
 
-                resolve(decoded);
+                resolve( decoded as T );
             });
         })
     }
