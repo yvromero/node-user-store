@@ -18,6 +18,7 @@ export class CategoryService {
             const category = new CategoryModel({
                 ...createCategoryDto,
             user: user.id,
+            
             })
             
             await category.save();
